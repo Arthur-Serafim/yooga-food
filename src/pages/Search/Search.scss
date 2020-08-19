@@ -1,0 +1,20 @@
+.search-page {
+    &-container {
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+        font-family: "Poppins", sans-serif;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 25px;
+    }
+
+    &-input {
+        width: 100%;
+        font-size: 16px;
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        outline-color: #ccc;
+        margin-bottom: 20px;
+    }
+}
