@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import "./Navbar.scss";
 
-export default function Navbar({ props }) {
+export default function Navbar({ props }: any) {
     return (
         <nav className="navbar-component-container">
             <NavLink
