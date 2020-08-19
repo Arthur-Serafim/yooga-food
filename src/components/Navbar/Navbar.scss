@@ -1,0 +1,50 @@
+.navbar-component {
+    &-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        background: white;
+        border-top: 1px solid #eee;
+    }
+    &-items {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Poppins", sans-serif;
+        cursor: pointer;
+        color: #252525;
+        box-sizing: border-box;
+
+        &:hover {
+            border-bottom: 2px solid #56ccf2;
+            color: #56ccf2;
+
+            & span,
+            & i {
+                transform: translateY(1px);
+            }
+        }
+
+        &-active {
+            color: #56ccf2;
+        }
+    }
+    &-item {
+        &-title {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        &-icon {
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+    }
+}
