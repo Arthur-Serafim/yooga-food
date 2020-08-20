@@ -106,7 +106,15 @@ export default function Search(props: any) {
                     <h2 className="search-page-title">Categorias populares</h2>
                     <div className="categories-container">
                         {categories.map((category) => (
-                            <div className="category-container">
+                            <div
+                                className="category-container"
+                                key={Math.random()}
+                                onClick={() =>
+                                    props.history.push(
+                                        `/categoria/${category.name}`
+                                    )
+                                }
+                            >
                                 <span className="category-title">
                                     {category.name}
                                 </span>

@@ -18,7 +18,7 @@ export default function Navbar({ props }: any) {
             <NavLink
                 className="navbar-component-items link"
                 exact
-                to="/search"
+                to="/busca"
                 activeClassName="navbar-component-items-active"
             >
                 <i className="fas fa-search navbar-component-item-icon" />
