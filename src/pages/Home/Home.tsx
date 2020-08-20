@@ -18,7 +18,7 @@ export default function Home(props: any) {
 
     useEffect(() => {
         getLocation();
-    });
+    }, []);
 
     function getLocation() {
         navigator.geolocation.getCurrentPosition(
