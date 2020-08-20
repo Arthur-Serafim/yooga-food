@@ -7,11 +7,22 @@
     min-height: 100vh;
     box-sizing: border-box;
     padding: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.stores-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
 }
 
 .store-display {
     &-container {
         height: 100px;
+        width: 100%;
+        max-width: 400px;
         box-sizing: border-box;
         padding: 5px;
         border: 1px solid #ddd;
@@ -19,7 +30,9 @@
         display: flex;
         cursor: pointer;
         transition: all 0.3s;
-        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 25px;
 
         &:hover {
             border-color: #56ccf2;

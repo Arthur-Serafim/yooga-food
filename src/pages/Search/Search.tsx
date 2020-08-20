@@ -6,6 +6,7 @@ import { storeMockup } from "../../mockup";
 
 export default function Search(props: any) {
     let [stores, setStores] = useState([]);
+    let [search, setSearch] = useState(``);
 
     function retira_acentos(str: any) {
         let com_acento =
@@ -17,13 +18,13 @@ export default function Search(props: any) {
         for (let i = 0; i < str.length; i++) {
             let troca = false;
             for (let a = 0; a < com_acento.length; a++) {
-                if (str.substr(i, 1) == com_acento.substr(a, 1)) {
+                if (str.substr(i, 1) === com_acento.substr(a, 1)) {
                     novastr += sem_acento.substr(a, 1);
                     troca = true;
                     break;
                 }
             }
-            if (troca == false) {
+            if (troca === false) {
                 novastr += str.substr(i, 1);
             }
         }
@@ -32,14 +33,20 @@ export default function Search(props: any) {
 
     function handleSearch(e: any) {
         e.preventDefault();
+        setSearch(e.target.value);
 
-        let filtered: any = storeMockup.filter((item) =>
-            retira_acentos(item.name?.toLowerCase()).includes(
-                retira_acentos(e.target.value.toLowerCase())
-            )
-        );
+        if (e.target.value === "") {
+            console.log(e.target.value);
+            setStores([]);
+        } else {
+            let filtered: any = storeMockup.filter((item) =>
+                retira_acentos(item.name?.toLowerCase()).includes(
+                    retira_acentos(e.target.value.toLowerCase())
+                )
+            );
 
-        setStores(filtered);
+            setStores(filtered);
+        }
     }
 
     function handleSelectStore(opened: any) {
@@ -94,6 +101,11 @@ export default function Search(props: any) {
                         </div>
                     </div>
                 ))}
+            {search === "" && (
+                <>
+                    <h2 className="search-page-title">Categorias Favoritas</h2>
+                </>
+            )}
             <Navbar props={props} />
         </div>
     );
