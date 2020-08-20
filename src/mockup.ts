@@ -1,4 +1,4 @@
-import { Store } from "./interfaces";
+import { Store, Categoria } from "./interfaces";
 
 export let storeMockup: Array<Store> = [
     {
@@ -36,5 +36,28 @@ export let storeMockup: Array<Store> = [
         delivery_fee: 5,
         distance: 3.9,
         description: "Sorveteria",
+    },
+];
+
+export let categories: Array<Categoria> = [
+    {
+        name: "Doceria",
+        img:
+            "https://images.unsplash.com/photo-1596914258628-5e2b762c7db2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+    },
+    {
+        name: "Lanchonete",
+        img:
+            "https://images.unsplash.com/photo-1541379119855-2078576bb41f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+    },
+    {
+        name: "Coxinharia",
+        img:
+            "https://www.thespruceeats.com/thmb/jXlVRZuhFC7xr7qJW5fuOlxO3qk=/735x0/coxinha-brazilian-chicken-croquettes-3029668-Hero-5b7d5f9546e0fb00252abc5f.jpg",
+    },
+    {
+        name: "Sorveteria",
+        img:
+            "https://images.unsplash.com/photo-1576506295286-5cda18df43e7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80",
     },
 ];

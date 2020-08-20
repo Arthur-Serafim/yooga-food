@@ -6,3 +6,8 @@ export interface Store {
     distance?: number;
     description?: string;
 }
+
+export interface Categoria {
+    name: string;
+    img: string;
+}

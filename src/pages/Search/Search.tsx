@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Search.scss";
 import { Store } from "../../interfaces";
-import { storeMockup } from "../../mockup";
+import { storeMockup, categories } from "../../mockup";
 
 export default function Search(props: any) {
     let [stores, setStores] = useState([]);
@@ -103,7 +103,22 @@ export default function Search(props: any) {
                 ))}
             {search === "" && (
                 <>
-                    <h2 className="search-page-title">Categorias Favoritas</h2>
+                    <h2 className="search-page-title">Categorias populares</h2>
+                    <div className="categories-container">
+                        {categories.map((category) => (
+                            <div className="category-container">
+                                <span className="category-title">
+                                    {category.name}
+                                </span>
+                                <img
+                                    src={category.img}
+                                    alt="Imagem da categoria"
+                                    className="category-img"
+                                />
+                                <div className="darken"></div>
+                            </div>
+                        ))}
+                    </div>
                 </>
             )}
             <Navbar props={props} />
