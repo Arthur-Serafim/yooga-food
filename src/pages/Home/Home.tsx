@@ -83,7 +83,7 @@ export default function Home(props: any) {
                     ))}
                 </div>
             ) : (
-                <div className="no-location">
+                <div className="no-location" onClick={getLocation}>
                     Ative a localização para ver lojas perto de ti.
                 </div>
             )}

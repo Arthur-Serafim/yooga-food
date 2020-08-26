@@ -2,7 +2,6 @@ import React from "react";
 import "./CategoryNavbar.scss";
 
 export default function CategoryNavbar({ categoryName, props }: any) {
-    console.log(categoryName);
     return (
         <nav className="category-navbar">
             <button
