@@ -51,6 +51,7 @@
     &-img {
         height: 100%;
         width: 90px;
+        object-fit: cover;
         border-radius: 5px;
     }
 
@@ -58,6 +59,7 @@
         font-size: 16px;
         font-weight: bold;
         color: #252525;
+        text-transform: capitalize;
     }
 
     &-info {

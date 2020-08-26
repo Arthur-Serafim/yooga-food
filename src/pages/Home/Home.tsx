@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Home.scss";
-import { storeMockup } from "../../mockup";
+// import { storeMockup } from "../../mockup";
 import { Store } from "../../interfaces";
+import StoreService from '../../services/stores'
 
 export default function Home(props: any) {
     let [location, setLocation] = useState({
@@ -10,14 +11,25 @@ export default function Home(props: any) {
         longitude: 0,
         allowed: false,
     });
-    function handleSelectStore(opened: any) {
+    let [store, setStore] = useState([])
+    const storeService = new StoreService
+
+    function handleSelectStore(opened: any, url: any) {
         if (opened) {
-            alert("yupi");
+            window.open(`https://yooga.com.br/delivery/${url}`)
         }
     }
 
     useEffect(() => {
-        getLocation();
+        if (!location.allowed) {
+            getLocation()
+        } else {
+            (async () => {
+                console.log(location)
+                let res = await storeService.loadStore(location.latitude, location.longitude)
+                setStore(res.data)
+            })()
+        }
     }, []);
 
     function getLocation() {
@@ -28,6 +40,11 @@ export default function Home(props: any) {
                     longitude: position.coords.longitude,
                     allowed: true,
                 });
+
+                (async () => {
+                    let res = await storeService.loadStore(position.coords.latitude, position.coords.longitude)
+                    setStore(res.data)
+                })()
             },
             (err) => {
                 setLocation({
@@ -41,52 +58,53 @@ export default function Home(props: any) {
 
     return (
         <div className="home-page-container">
-            {location.longitude ? (
+            {store ? (
                 <div className="stores-container">
-                    {storeMockup.map((store: Store) => (
+                    <h2 className="search-page-title">Lojas perto de você!</h2>
+                    {store.map((item: Store) => (
                         <span
                             className={`store-display-container ${
-                                !store.opened &&
+                                !item.opened &&
                                 "store-display-container-closed"
-                            }`}
-                            onClick={() => handleSelectStore(store.opened)}
+                                }`}
+                            onClick={() => handleSelectStore(item.opened, item.url)}
                             key={Math.random()}
                         >
                             <img
-                                src={store.img}
+                                src={item.img ? item.img : 'https://www.bauducco.com.br/wp-content/uploads/2017/09/default-placeholder-1-2.png'}
                                 alt=""
                                 className="store-display-img"
                             />
                             <div className="store-display-info-container">
                                 <span className="store-display-title">
-                                    {store.name}
+                                    {item.name}
                                 </span>
                                 <div className="store-display-info-description-distance">
-                                    {store.description} - {store.distance}km
+                                    {item.description}  {item.distance && `- ${item.distance?.toFixed(2)} km`}
                                 </div>
                                 <div
                                     className="store-display-info-description-distance
                     store-display-info-align-delivery"
                                 >
-                                    {store.delivery_fee ? (
+                                    {item.delivery_fee ? (
                                         <span>
                                             R${" "}
-                                            {store.delivery_fee &&
-                                                store.delivery_fee.toFixed(2)}
+                                            {item.delivery_fee &&
+                                                item.delivery_fee.toFixed(2)}
                                         </span>
                                     ) : (
-                                        <span>Entrega Grátis</span>
-                                    )}
+                                            <span>Entrega Grátis</span>
+                                        )}
                                 </div>
                             </div>
                         </span>
                     ))}
                 </div>
             ) : (
-                <div className="no-location" onClick={getLocation}>
-                    Ative a localização para ver lojas perto de ti.
-                </div>
-            )}
+                    <div className="no-location" onClick={getLocation}>
+                        Ative a localização para ver lojas perto de ti.
+                    </div>
+                )}
             <Navbar props={props} />
         </div>
     );

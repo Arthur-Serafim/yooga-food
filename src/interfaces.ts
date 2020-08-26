@@ -5,6 +5,7 @@ export interface Store {
     delivery_fee?: number;
     distance?: number;
     description?: string;
+    url?: string;
 }
 
 export interface Categoria {

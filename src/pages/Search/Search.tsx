@@ -51,7 +51,7 @@ export default function Search(props: any) {
 
     function handleSelectStore(opened: any) {
         if (opened) {
-            alert("yupi");
+            window.open('google.com')
         }
     }
 
@@ -111,7 +111,7 @@ export default function Search(props: any) {
                                 key={Math.random()}
                                 onClick={() =>
                                     props.history.push(
-                                        `/categoria/${category.name}`
+                                        `/categoria/${category.name.toLowerCase()}`
                                     )
                                 }
                             >

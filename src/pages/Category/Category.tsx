@@ -7,7 +7,7 @@ import "./Category.scss";
 export default function Category(props: any) {
     const category_name = props.match.params.category_name;
     let stores = storeMockup.filter(
-        (store: Store) => store.description === category_name
+        (store: Store) => store.description?.toLowerCase() === category_name.toLowerCase()
     );
 
     function handleSelectStore(opened: any) {
