@@ -1,29 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-
+import YoogaLogo from '../../assets/YoogaMicroLogo.png'
 import "./Navbar.scss";
 
-export default function Navbar({ props }: any) {
+export default function Navbar() {
     return (
         <nav className="navbar-component-container">
-            <NavLink
-                className="navbar-component-items link"
-                exact
-                to="/"
-                activeClassName="navbar-component-items-active"
-            >
-                <i className="fas fa-home navbar-component-item-icon" />
-                <span className="navbar-component-item-title">Início</span>
-            </NavLink>
-            <NavLink
-                className="navbar-component-items link"
-                exact
-                to="/busca"
-                activeClassName="navbar-component-items-active"
-            >
-                <i className="fas fa-search navbar-component-item-icon" />
-                <span className="navbar-component-item-title">Buscar</span>
-            </NavLink>
+            <img src={YoogaLogo} alt="Logo yooga" />
+            <span className="navbar-component-title">Yooga Marketplace</span>
         </nav>
     );
 }

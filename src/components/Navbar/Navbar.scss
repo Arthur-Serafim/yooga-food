@@ -1,53 +1,31 @@
 .navbar-component {
     &-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
         width: 100%;
-        height: 55px;
+        height: 70px;
         box-sizing: border-box;
         display: flex;
         align-items: center;
         background: white;
-        border-top: 1px solid #eee;
-    }
+        padding: 0 25px;
 
-    &-items {
-        width: 50%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        font-family: "Poppins", sans-serif;
-        cursor: pointer;
-        color: #252525;
-        box-sizing: border-box;
-
-        &:hover {
-            border-bottom: 2px solid #56ccf2;
-            color: #56ccf2;
-
-            & span,
-            & i {
-                transform: translateY(1px);
+        @media only screen and (max-width: 500px) {
+            & img {
+                height: 30px;
+                width: 30px;
             }
         }
-
-        &-active {
-            color: #56ccf2;
-        }
     }
 
-    &-item {
-        &-title {
-            font-size: 12px;
-            opacity: 0.8;
-        }
+    &-title {
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+        font-family: 'Poppins';
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 28px;
+        color: #46b9eb;
 
-        &-icon {
-            margin-bottom: 5px;
-            font-size: 18px;
+        @media only screen and (max-width: 500px) {
+            font-size: 22px;
         }
     }
 }
