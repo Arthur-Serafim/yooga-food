@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import React, { useState, useEffect } from "react";
 import "./Home.scss";
 import { Store } from "../../interfaces";
-import StoreService from '../../services/stores'
+import StoreService from "../../services/stores";
 
 export default function Home(props: any) {
     let [location, setLocation] = useState({
@@ -11,13 +10,8 @@ export default function Home(props: any) {
         allowed: false,
     });
     let [store, setStore] = useState([])
+    let [storeToSearch, setStoreToSearch] = useState([])
     const storeService = new StoreService()
-
-    function handleSelectStore(opened: any, url: any) {
-        if (opened) {
-            window.open(`https://yooga.com.br/delivery/${url}`)
-        }
-    }
 
     useEffect(() => {
         if (!location.allowed) {
@@ -25,11 +19,54 @@ export default function Home(props: any) {
         } else {
             (async () => {
                 let res = await storeService.loadStore(location.latitude, location.longitude)
+                setStoreToSearch(res.data)
                 setStore(res.data)
             })()
         }
         // eslint-disable-next-line
     }, []);
+
+    function retira_acentos(str: any) {
+        let com_acento =
+            "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŕ";
+        let sem_acento =
+            "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaceeeeiiiionoooooouuuuybyr";
+        let novastr = "";
+
+        for (let i = 0; i < str.length; i++) {
+            let troca = false;
+            for (let a = 0; a < com_acento.length; a++) {
+                if (str.substr(i, 1) === com_acento.substr(a, 1)) {
+                    novastr += sem_acento.substr(a, 1);
+                    troca = true;
+                    break;
+                }
+            }
+            if (troca === false) {
+                novastr += str.substr(i, 1);
+            }
+        }
+        return novastr;
+    }
+
+    function handleSearch(e: any) {
+        if (e.target.value === '') {
+            setStoreToSearch(store);
+        } else {
+            let filtered: any = store.filter((item: any) =>
+                retira_acentos(item.name?.toLowerCase()).includes(
+                    retira_acentos(e.target.value.toLowerCase())
+                )
+            );
+            setStoreToSearch(filtered);
+        }
+    }
+
+    function handleSelectStore(opened: any, url: any) {
+        if (opened) {
+            window.open(`https://yooga.com.br/delivery/${url}`)
+        }
+    }
 
     function getLocation() {
         navigator.geolocation.getCurrentPosition(
@@ -43,6 +80,7 @@ export default function Home(props: any) {
                 (async () => {
                     let res = await storeService.loadStore(position.coords.latitude, position.coords.longitude)
                     setStore(res.data)
+                    setStoreToSearch(res.data)
                 })()
             },
             (err) => {
@@ -56,12 +94,19 @@ export default function Home(props: any) {
     }
 
     return (
-        <div className="home-page-container">
-            {store ? (
-                <div className="home-page-container-wrapper">
+        <div className="search-page-container">
+            {location.allowed ? (
+                <>
+                    <input
+                        value=""
+                        type="text"
+                        className="search-page-input"
+                        placeholder="Procure por loja"
+                        onChange={(e) => handleSearch(e)}
+                    />
                     <h2 className="search-page-title">Lojas perto de você!</h2>
                     <div className="stores-container">
-                        {store.map((item: Store) => (
+                        {storeToSearch.map((item: Store) => (
                             <span
                                 className={`store-display-container ${
                                     !item.opened &&
@@ -84,7 +129,7 @@ export default function Home(props: any) {
                                     </div>
                                     <div
                                         className="store-display-info-description-distance
-                    store-display-info-align-delivery"
+                            store-display-info-align-delivery"
                                     >
                                         {item.delivery_fee ? (
                                             <span>
@@ -100,13 +145,14 @@ export default function Home(props: any) {
                             </span>
                         ))}
                     </div>
-                </div>
+                </>
             ) : (
-                    <div className="no-location" onClick={getLocation}>
-                        Ative a localização para ver lojas perto de ti.
+                    <div className="home-page-container">
+                        <div className="no-location" onClick={getLocation}>
+                            Ative a localização para ver lojas perto de ti.
+                        </div>
                     </div>
                 )}
-            <Navbar props={props} />
         </div>
     );
 }
