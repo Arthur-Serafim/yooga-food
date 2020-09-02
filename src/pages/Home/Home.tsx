@@ -101,7 +101,6 @@ export default function Home(props: any) {
                 {location.allowed ? (
                     <>
                         <input
-                            value=""
                             type="text"
                             className="search-page-input"
                             placeholder="Procure por loja"
