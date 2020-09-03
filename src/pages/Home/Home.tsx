@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Home.scss";
-import { Store } from "../../interfaces";
 import StoreService from "../../services/stores";
 import Navbar from '../../components/Navbar/Navbar'
 
@@ -108,7 +107,7 @@ export default function Home(props: any) {
                         />
                         <h2 className="search-page-title">Lojas perto de você!</h2>
                         <div className="stores-container">
-                            {storeToSearch.map((item: Store) => (
+                            {storeToSearch.map((item: any) => (
                                 <span
                                     className={`store-display-container ${
                                         !item.opened &&
@@ -127,7 +126,7 @@ export default function Home(props: any) {
                                             {item.name}
                                         </div>
                                         <div className="store-display-info-description-distance">
-                                            {item.description}  {item.distance && `- ${item.distance?.toFixed(2)} km`}
+                                            {item.description.length > 20 ? item.description.substr(0, 20) + '...' : item.description.substr(0, 20) } {item.distance && ` - ${item.distance?.toFixed(2)} km`}  
                                         </div>
                                         <div
                                             className="store-display-info-description-distance
