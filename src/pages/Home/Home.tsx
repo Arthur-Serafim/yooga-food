@@ -63,9 +63,7 @@ export default function Home(props: any) {
     }
 
     function handleSelectStore(opened: any, url: any) {
-        if (opened) {
-            window.open(`https://yooga.com.br/delivery/${url}`)
-        }
+      window.open(`https://yooga.com.br/delivery/${url}`)
     }
 
     function getLocation() {
