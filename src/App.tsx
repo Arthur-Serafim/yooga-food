@@ -5,7 +5,7 @@ import "./App.scss";
 
 function App(props: any) {
     return (
-        <Router>
+        <Router  basename={'marketplace'}>
             <Switch>
                 <Route exact path="/" component={Home} />
             </Switch>
